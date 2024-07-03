@@ -31,18 +31,19 @@ export default function LoginForm() {
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/.test(
         value
       ) ||
-      "'Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character."
+      "Password must contain at least 8 characters, including one uppercase letter, one lowercase letter, one number, and one special character."
     );
   };
 
   return (
     <div className="loginForm">
-      <div className="formArea">
+      <div className="formArea" data-cy="formField">
         <form onSubmit={handleSubmit(formSubmit)} className="form">
           <h3>LOGIN FORM</h3>
 
           <label htmlFor="email">Email:</label>
           <input
+            data-cy="emailInput"
             type="email"
             {...register("email", {
               required: "E-mail field cannot be left blank",
@@ -54,11 +55,14 @@ export default function LoginForm() {
             placeholder="Enter your email"
           />
           {errors.email && (
-            <p style={{ color: "red" }}>{errors.email.message}</p>
+            <p data-cy="emailError" style={{ color: "red" }}>
+              {errors.email.message}
+            </p>
           )}
 
           <label htmlFor="password">Password:</label>
           <input
+            data-cy="passwordInput"
             type="password"
             {...register("password", {
               validate: validatePassword,
@@ -66,11 +70,14 @@ export default function LoginForm() {
             placeholder="Enter your password"
           />
           {errors.password && (
-            <p style={{ color: "red" }}>{errors.password.message}</p>
+            <p data-cy="pswdError" style={{ color: "red" }}>
+              {errors.password.message}
+            </p>
           )}
 
           <div className="formCheckbox">
             <input
+              data-cy="checkboxInput"
               type="checkbox"
               {...register("checkbox", {
                 required: "You must accept the terms",
@@ -80,10 +87,17 @@ export default function LoginForm() {
             <label htmlFor="checkbox">Şartları kabul ediyorum</label>
           </div>
           {errors.checkbox && (
-            <p style={{ color: "red" }}>{errors.checkbox.message}</p>
+            <p data-cy="checkError" style={{ color: "red" }}>
+              {errors.checkbox.message}
+            </p>
           )}
 
-          <button type="submit" disabled={!isValid} className="loginBtn">
+          <button
+            data-cy="submitBtn"
+            type="submit"
+            disabled={!isValid}
+            className="loginBtn"
+          >
             Login
           </button>
         </form>
